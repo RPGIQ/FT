@@ -26,16 +26,23 @@ function saveMatch() {
         return;
     }
 
-    // Add points for winning team
+    // Add points for winning team or for draw
     let winnerColor = '';
     if (firstTeamGoals > secondTeamGoals) {
         winnerColor = firstPlayer.split(': ')[1];
     } else if (firstTeamGoals < secondTeamGoals) {
         winnerColor = secondPlayer.split(': ')[1];
+    } else {
+        // If it's a draw, add 1 point to both teams
+        const firstTeamColor = firstPlayer.split(': ')[1];
+        const secondTeamColor = secondPlayer.split(': ')[1];
+        updatePoints(firstTeamColor, 1);
+        updatePoints(secondTeamColor, 1);
+        return; // Exit function after handling draw
     }
 
-    // Update points
-    updatePoints(winnerColor);
+    // Update points for winning team
+    updatePoints(winnerColor, 3);
 
     // Update scorers
     updateScorers(firstPlayer, firstTeamGoals);
@@ -45,12 +52,10 @@ function saveMatch() {
     saveToLocalStorage();
 }
 
-function updatePoints(winnerColor) {
-    if (winnerColor) {
-        const pointsCell = document.getElementById(`${winnerColor}Points`);
-        if (pointsCell) {
-            pointsCell.innerText = parseInt(pointsCell.innerText) + 3;
-        }
+function updatePoints(teamColor, points) {
+    const pointsCell = document.getElementById(`${teamColor}Points`);
+    if (pointsCell) {
+        pointsCell.innerText = parseInt(pointsCell.innerText) + points;
     }
 }
 
@@ -100,7 +105,6 @@ function loadScorers() {
         document.getElementById("scorersBody").appendChild(scorerRow);
     });
 }
-
 
 function saveToLocalStorage() {
     const standings = {
