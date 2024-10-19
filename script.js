@@ -58,15 +58,15 @@ function saveMatch() {
 
     // تحديث النقاط
     if (firstTeamGoals > secondTeamGoals) {
-        updatePoints("أحمر", 3); // إضافة 3 نقاط للفريق الأول
-        updatePoints("أسود", 0); // الفريق الثاني لا يحصل على نقاط
+        updatePoints("أحمر", 3); // إضافة 3 نقاط للفريق الأحمر
+        updatePoints("أسود", 0); // الفريق الأسود لا يحصل على نقاط
     } else if (firstTeamGoals < secondTeamGoals) {
-        updatePoints("أسود", 3); // إضافة 3 نقاط للفريق الثاني
-        updatePoints("أحمر", 0); // الفريق الأول لا يحصل على نقاط
+        updatePoints("أسود", 3); // إضافة 3 نقاط للفريق الأسود
+        updatePoints("أحمر", 0); // الفريق الأحمر لا يحصل على نقاط
     } else {
         // تعادل
-        updatePoints("أحمر", 1); // إضافة نقطة للفريق الأول
-        updatePoints("أسود", 1); // إضافة نقطة للفريق الثاني
+        updatePoints("أحمر", 1); // إضافة نقطة للفريق الأحمر
+        updatePoints("أسود", 1); // إضافة نقطة للفريق الأسود
     }
 
     // إضافة أهداف اللاعبين حسب عدد الأهداف المدخلة
