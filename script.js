@@ -14,6 +14,9 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
 document.getElementById("saveMatch").addEventListener("click", saveMatch);
 document.getElementById("resetData").addEventListener("click", resetData);
+document.getElementById("backButton").addEventListener("click", function() {
+    location.reload(); // إعادة تحميل الصفحة
+});
 
 function saveMatch() {
     const firstPlayer = document.getElementById("firstTeamPlayer").value;
@@ -23,42 +26,43 @@ function saveMatch() {
 
     if (!firstPlayer || !secondPlayer || isNaN(firstTeamGoals) || isNaN(secondTeamGoals)) {
         alert("يرجى ملء جميع الحقول");
+        document.getElementById("backButton").style.display = "block"; // عرض زر الرجوع
         return;
     }
 
-    // Add points for winning team or for draw
+    // إذا كانت النتيجة صحيحة، قم بإخفاء زر الرجوع
+    document.getElementById("backButton").style.display = "none";
+
+    // إضافة النقاط لفريق الفوز أو للتعادل
     let winnerColor = '';
     if (firstTeamGoals > secondTeamGoals) {
         winnerColor = firstPlayer.split(': ')[1];
+        updatePoints(winnerColor, 3); // إضافة 3 نقاط للفائز
     } else if (firstTeamGoals < secondTeamGoals) {
         winnerColor = secondPlayer.split(': ')[1];
+        updatePoints(winnerColor, 3); // إضافة 3 نقاط للفائز
     } else {
-        // If it's a draw
+        // حالة التعادل
         const firstTeamColor = firstPlayer.split(': ')[1];
         const secondTeamColor = secondPlayer.split(': ')[1];
 
-        // If the draw is 1-1, add points and update scorers
+        // إضافة نقطة لكل فريق إذا كانت النتيجة 1-1
         if (firstTeamGoals === 1 && secondTeamGoals === 1) {
-            updatePoints(firstTeamColor, 1);
-            updatePoints(secondTeamColor, 1);
-            updateScorers(firstPlayer, 1);
-            updateScorers(secondPlayer, 1);
+            updatePoints(firstTeamColor, 1); // نقطة واحدة للفريق الأول
+            updatePoints(secondTeamColor, 1); // نقطة واحدة للفريق الثاني
+            updateScorers(firstPlayer, 1); // إضافة هدف للاعب الأول
+            updateScorers(secondPlayer, 1); // إضافة هدف للاعب الثاني
         } else {
-            // If it's a 0-0 draw, just add 1 point each
-            updatePoints(firstTeamColor, 1);
-            updatePoints(secondTeamColor, 1);
+            // لا يتم إضافة أي أهداف للاعبين إذا كانت النتيجة 0-0
+            updatePoints(firstTeamColor, 1); // نقطة واحدة للفريق الأول
+            updatePoints(secondTeamColor, 1); // نقطة واحدة للفريق الثاني
         }
-        return; // Exit function after handling draw
+        return;
     }
 
-    // Update points for winning team
-    updatePoints(winnerColor, 3);
-
-    // Update scorers
+    // تحديث قائمة الهدافين للأهداف الأخرى
     updateScorers(firstPlayer, firstTeamGoals);
     updateScorers(secondPlayer, secondTeamGoals);
-
-    // Save to localStorage
     saveToLocalStorage();
 }
 
