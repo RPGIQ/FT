@@ -33,11 +33,21 @@ function saveMatch() {
     } else if (firstTeamGoals < secondTeamGoals) {
         winnerColor = secondPlayer.split(': ')[1];
     } else {
-        // If it's a draw, add 1 point to both teams
+        // If it's a draw
         const firstTeamColor = firstPlayer.split(': ')[1];
         const secondTeamColor = secondPlayer.split(': ')[1];
-        updatePoints(firstTeamColor, 1);
-        updatePoints(secondTeamColor, 1);
+
+        // If the draw is 1-1, add points and update scorers
+        if (firstTeamGoals === 1 && secondTeamGoals === 1) {
+            updatePoints(firstTeamColor, 1);
+            updatePoints(secondTeamColor, 1);
+            updateScorers(firstPlayer, 1);
+            updateScorers(secondPlayer, 1);
+        } else {
+            // If it's a 0-0 draw, just add 1 point each
+            updatePoints(firstTeamColor, 1);
+            updatePoints(secondTeamColor, 1);
+        }
         return; // Exit function after handling draw
     }
 
@@ -94,10 +104,6 @@ function loadStandings() {
 
 function loadScorers() {
     const scorers = JSON.parse(localStorage.getItem("scorers")) || [];
-
-    // ترتيب الهدافين حسب عدد الأهداف (الأكبر أولاً)
-    scorers.sort((a, b) => b.goals - a.goals);
-
     scorers.forEach(scorer => {
         const scorerRow = document.createElement("tr");
         scorerRow.setAttribute("data-player", scorer.player);
