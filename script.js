@@ -32,18 +32,25 @@ function saveMatch() {
 
     // تحديث النقاط
     if (firstTeamGoals > secondTeamGoals) {
-        updatePoints("أحمر");
+        updatePoints("أحمر"); // الفريق الأول
     } else if (firstTeamGoals < secondTeamGoals) {
-        updatePoints("أسود");
-    } else if (firstTeamGoals === secondTeamGoals && firstTeamGoals > 0) {
-        // تعادل مع تسجيل أهداف
-        updatePoints("أحمر");
-        updatePoints("أسود");
-        addScorer(firstPlayer);
-        addScorer(secondPlayer);
+        updatePoints("أسود"); // الفريق الثاني
+    } else {
+        // تعادل (يشمل 0-0 أو غيرها)
+        if (firstTeamGoals === 0) {
+            // تعادل 0-0: لا إضافة أهداف
+            updatePoints("أحمر");
+            updatePoints("أسود");
+        } else {
+            // تعادل مع أهداف (1-1 أو أكثر)
+            updatePoints("أحمر");
+            updatePoints("أسود");
+            addScorer(firstPlayer);
+            addScorer(secondPlayer);
+        }
     }
 
-    // إضافة أهداف اللاعبين
+    // إضافة أهداف اللاعبين إذا كانت هناك أهداف
     if (firstTeamGoals > 0) {
         addScorer(firstPlayer);
     }
@@ -58,7 +65,7 @@ function saveMatch() {
 function updatePoints(teamColor) {
     const teamPointsCell = document.getElementById(teamColor + "Points");
     let currentPoints = parseInt(teamPointsCell.innerText);
-    teamPointsCell.innerText = currentPoints + 3; // إضافة 3 نقاط للفوز
+    teamPointsCell.innerText = currentPoints + 1; // إضافة نقطة لكل فريق
 }
 
 function addScorer(player) {
