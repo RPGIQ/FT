@@ -14,9 +14,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
 document.getElementById("saveMatch").addEventListener("click", saveMatch);
 document.getElementById("resetData").addEventListener("click", resetData);
-document.getElementById("backButton").addEventListener("click", function() {
-    location.reload(); // إعادة تحميل الصفحة
-});
 
 function saveMatch() {
     const firstPlayer = document.getElementById("firstTeamPlayer").value;
@@ -26,50 +23,49 @@ function saveMatch() {
 
     if (!firstPlayer || !secondPlayer || isNaN(firstTeamGoals) || isNaN(secondTeamGoals)) {
         alert("يرجى ملء جميع الحقول");
-        document.getElementById("backButton").style.display = "block"; // عرض زر الرجوع
         return;
     }
 
-    // إذا كانت النتيجة صحيحة، قم بإخفاء زر الرجوع
-    document.getElementById("backButton").style.display = "none";
-
-    // إضافة النقاط لفريق الفوز أو للتعادل
+    // Add points for winning team or draw
     let winnerColor = '';
     if (firstTeamGoals > secondTeamGoals) {
-        winnerColor = firstPlayer.split(': ')[1];
-        updatePoints(winnerColor, 3); // إضافة 3 نقاط للفائز
+        winnerColor = firstPlayer.split(': ')[1]; // Get the color of the winning player
     } else if (firstTeamGoals < secondTeamGoals) {
         winnerColor = secondPlayer.split(': ')[1];
-        updatePoints(winnerColor, 3); // إضافة 3 نقاط للفائز
-    } else {
-        // حالة التعادل
-        const firstTeamColor = firstPlayer.split(': ')[1];
-        const secondTeamColor = secondPlayer.split(': ')[1];
-
-        // إضافة نقطة لكل فريق إذا كانت النتيجة 1-1
-        if (firstTeamGoals === 1 && secondTeamGoals === 1) {
-            updatePoints(firstTeamColor, 1); // نقطة واحدة للفريق الأول
-            updatePoints(secondTeamColor, 1); // نقطة واحدة للفريق الثاني
-            updateScorers(firstPlayer, 1); // إضافة هدف للاعب الأول
-            updateScorers(secondPlayer, 1); // إضافة هدف للاعب الثاني
-        } else {
-            // لا يتم إضافة أي أهداف للاعبين إذا كانت النتيجة 0-0
-            updatePoints(firstTeamColor, 1); // نقطة واحدة للفريق الأول
-            updatePoints(secondTeamColor, 1); // نقطة واحدة للفريق الثاني
-        }
-        return;
     }
 
-    // تحديث قائمة الهدافين للأهداف الأخرى
-    updateScorers(firstPlayer, firstTeamGoals);
-    updateScorers(secondPlayer, secondTeamGoals);
+    // Update points
+    updatePoints(winnerColor, firstTeamGoals, secondTeamGoals);
+
+    // Update scorers only if there's a goal
+    if (firstTeamGoals > 0 || secondTeamGoals > 0) {
+        if (firstTeamGoals > 0) {
+            updateScorers(firstPlayer, firstTeamGoals);
+        }
+        if (secondTeamGoals > 0) {
+            updateScorers(secondPlayer, secondTeamGoals);
+        }
+    }
+
+    // Save to localStorage
     saveToLocalStorage();
 }
 
-function updatePoints(teamColor, points) {
-    const pointsCell = document.getElementById(`${teamColor}Points`);
-    if (pointsCell) {
-        pointsCell.innerText = parseInt(pointsCell.innerText) + points;
+function updatePoints(winnerColor, firstTeamGoals, secondTeamGoals) {
+    if (winnerColor) {
+        const pointsCell = document.getElementById(`${winnerColor}Points`);
+        if (pointsCell) {
+            pointsCell.innerText = parseInt(pointsCell.innerText) + 3; // 3 points for win
+        }
+    } else if (firstTeamGoals === secondTeamGoals && firstTeamGoals > 0) {
+        // If it’s a draw with goals
+        const colors = [firstPlayer.split(': ')[1], secondPlayer.split(': ')[1]];
+        colors.forEach(color => {
+            const pointsCell = document.getElementById(`${color}Points`);
+            if (pointsCell) {
+                pointsCell.innerText = parseInt(pointsCell.innerText) + 1; // 1 point for draw
+            }
+        });
     }
 }
 
