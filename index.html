@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج الدوري المدرسي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="loginPage">
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="اسم المستخدم" required>
+            <input type="password" id="password" placeholder="كلمة المرور" required>
+            <button type="submit">دخول</button>
+        </form>
+    </div>
+
+    <div id="mainContent" style="display:none;">
+        <h2>برنامج الدوري المدرسي</h2>
+        <select id="firstTeamPlayer">
+            <option disabled selected>اختر لاعب من الفريق الأول</option>
+            <option>أبو الحسن علي عبد الرحمن: أحمر</option>
+            <option>أحمد خالد حنين عباس: أسود</option>
+            <option>أحمد منتصر عبد الرزاق راضي: أحمر</option>
+            <option>أدم أشرف أحمد محمد: أبيض</option>
+            <option>أرسل خلدون محمد: أسود</option>
+            <option>جواد كاظم فزع كاظم: أزرق</option>
+            <option>حسن المجتبى صباح راشد: أبيض</option>
+            <option>حسين مقصد عبد الكاظم: أبيض</option>
+            <option>حسين إيهاب عبد السلام: أسود</option>
+            <option>حيدر صلاح عبيد: أسود</option>
+            <option>حيدر غيث فلاح كريم: أسود</option>
+            <option>حيدر كرار حامد جبر: أزرق</option>
+            <option>زين العابدين حسن عبيد محيسن: أحمر</option>
+            <option>عباس میثم محمد عبود: أسود</option>
+            <option>عباس هيثم سالم حسين: أزرق</option>
+            <option>علي حسن حبيب عبيد: أحمر</option>
+            <option>علي حيدر حسن هادي: أسود</option>
+            <option>على مثنى خليل: أحمر</option>
+            <option>علي محمد حمزة: أسود</option>
+            <option>علي محمد شاكر محمود: أحمر</option>
+            <option>علي محمد عبد الواحد: أبيض</option>
+            <option>علي محمد كريم عبيد: أحمر</option>
+            <option>علي مهند شاكر: أسود</option>
+            <option>علي نوفل على طعمه: أسود</option>
+            <option>علي وائل عبد الحسين: أزرق</option>
+            <option>علي وضاح عدنان: أبيض</option>
+            <option>كرار زيد محمود محمد: أسود</option>
+            <option>ليث صفاء عبد الرزاق: أبيض</option>
+            <option>محمد الباقر علي فلاح حسن: أحمر</option>
+            <option>محمد الفضل ماجد محيي: أحمر</option>
+            <option>محمد رضا سلام: أبيض</option>
+            <option>محمد علي حسين كاظم: أسود</option>
+            <option>محمد علي هاشم عبيس: أسود</option>
+            <option>محمد منعم على حسين: أزرق</option>
+            <option>مصدق حسن محسن: أزرق</option>
+            <option>مصطفى حيدر عبد الله: أسود</option>
+            <option>منتظر علاء عبد الحسين: أبيض</option>
+            <option>مهدي حسنين سامي: أحمر</option>
+            <option>يعسوب فلاح عبدالمهدي: أحمر</option>
+            <option>يوسف حسنين كاظم: أبيض</option>
+            <option>يوسف محمد علاء: أبيض</option>
+        </select>
+        <input type="number" id="firstTeamGoals" placeholder="عدد أهداف الفريق الأول" required>
+
+        <select id="secondTeamPlayer">
+            <option disabled selected>اختر لاعب من الفريق الثاني</option>
+            <option>أبو الحسن علي عبد الرحمن: أحمر</option>
+            <option>أحمد خالد حنين عباس: أسود</option>
+            <option>أحمد منتصر عبد الرزاق راضي: أحمر</option>
+            <option>أدم أشرف أحمد محمد: أبيض</option>
+            <option>أرسل خلدون محمد: أسود</option>
+            <option>جواد كاظم فزع كاظم: أزرق</option>
+            <option>حسن المجتبى صباح راشد: أبيض</option>
+            <option>حسين مقصد عبد الكاظم: أبيض</option>
+            <option>حسين إيهاب عبد السلام: أسود</option>
+            <option>حيدر صلاح عبيد: أسود</option>
+            <option>حيدر غيث فلاح كريم: أسود</option>
+            <option>حيدر كرار حامد جبر: أزرق</option>
+            <option>زين العابدين حسن عبيد محيسن: أحمر</option>
+            <option>عباس میثم محمد عبود: أسود</option>
+            <option>عباس هيثم سالم حسين: أزرق</option>
+            <option>علي حسن حبيب عبيد: أحمر</option>
+            <option>علي حيدر حسن هادي: أسود</option>
+            <option>على مثنى خليل: أحمر</option>
+            <option>علي محمد حمزة: أسود</option>
+            <option>علي محمد شاكر محمود: أحمر</option>
+            <option>علي محمد عبد الواحد: أبيض</option>
+            <option>علي محمد كريم عبيد: أحمر</option>
+            <option>علي مهند شاكر: أسود</option>
+            <option>علي نوفل على طعمه: أسود</option>
+            <option>علي وائل عبد الحسين: أزرق</option>
+            <option>علي وضاح عدنان: أبيض</option>
+            <option>كرار زيد محمود محمد: أسود</option>
+            <option>ليث صفاء عبد الرزاق: أبيض</option>
+            <option>محمد الباقر علي فلاح حسن: أحمر</option>
+            <option>محمد الفضل ماجد محيي: أحمر</option>
+            <option>محمد رضا سلام: أبيض</option>
+            <option>محمد علي حسين كاظم: أسود</option>
+            <option>محمد علي هاشم عبيس: أسود</option>
+            <option>محمد منعم على حسين: أزرق</option>
+            <option>مصدق حسن محسن: أزرق</option>
+            <option>مصطفى حيدر عبد الله: أسود</option>
+            <option>منتظر علاء عبد الحسين: أبيض</option>
+            <option>مهدي حسنين سامي: أحمر</option>
+            <option>يعسوب فلاح عبدالمهدي: أحمر</option>
+            <option>يوسف حسنين كاظم: أبيض</option>
+            <option>يوسف محمد علاء: أبيض</option>
+        </select>
+        <input type="number" id="secondTeamGoals" placeholder="عدد أهداف الفريق الثاني" required>
+
+        <button id="saveMatch">حفظ المباراة</button>
+        <button id="resetData">إعادة تعيين البيانات</button>
+
+        <h3>جدول النقاط</h3>
+        <table id="standingsTable">
+            <thead>
+                <tr>
+                    <th>الفريق</th>
+                    <th>النقاط</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>أحمر</td>
+                    <td id="أحمرPoints">0</td>
+                </tr>
+                <tr>
+                    <td>أسود</td>
+                    <td id="أسودPoints">0</td>
+                </tr>
+                <tr>
+                    <td>أبيض</td>
+                    <td id="أبيضPoints">0</td>
+                </tr>
+                <tr>
+                    <td>أزرق</td>
+                    <td id="أزرقPoints">0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>جدول الهدافين</h3>
+        <table id="scorersTable">
+            <thead>
+                <tr>
+                    <th>الهداف</th>
+                    <th>الأهداف</th>
+                </tr>
+            </thead>
+            <tbody id="scorersBody">
+                <!-- سيتم إضافة بيانات الهدافين هنا -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
